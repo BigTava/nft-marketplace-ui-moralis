@@ -1,7 +1,9 @@
-# Backend using Moralis
+# Web3 NFT Marketplace
 
-## use ngrok proxy using an open network
+## Getting started
 
-```shell
-ngrok http -region=eu 3000
-```
+1. Follow the setup instructions in each subfolder:
+
+- [contracts Setup](/contracts/README.md)
+- [frontend Setup](/frontend/README.md)
+- [moralis-backend Setup](/moralis-backend/README.md)
