@@ -1,86 +1,103 @@
-const express = require("express")
-const app = express()
-const port = 5001
-const Moralis = require("moralis").default
-const cors = require("cors")
+const express = require("express");
+const app = express();
+const port = 5001;
+const Moralis = require("moralis").default;
+const cors = require("cors");
 
-require("dotenv").config({ path: ".env" })
+require("dotenv").config({ path: ".env" });
 
-app.use(cors())
-app.use(express.json())
+app.use(cors());
+app.use(express.json());
 
-const MORLAIS_API_KEY = process.env.MORLAIS_API_KEY
+const MORLAIS_API_KEY = process.env.MORLAIS_API_KEY;
+
+app.post("/webhook", async (req, res) => {
+  const { headers, body } = req;
+
+  try {
+    Moralis.Streams.verifySignature({
+      body,
+      signature: headers["x-signature"],
+    });
+
+    console.log(body);
+    return res.status(200).json();
+  } catch (e) {
+    console.log(e);
+    return res.status(400).json();
+  }
+});
 
 app.get("/getnftdata", async (req, res) => {
-    try {
-        const { query } = req
+  try {
+    const { query } = req;
 
-        if (typeof query.contractAddress === "string") {
-            const response = await Moralis.EvmApi.nft.getNFTTrades({
-                address: query.contractAddress,
-                chain: "0x1",
-            })
+    if (typeof query.contractAddress === "string") {
+      const response = await Moralis.EvmApi.nft.getNFTTrades({
+        address: query.contractAddress,
+        chain: "0x1",
+      });
 
-            return res.status(200).json(response)
-        } else {
-            const nftData = []
+      return res.status(200).json(response);
+    } else {
+      const nftData = [];
 
-            for (let i = 0; i < query.contractAddress.length; i++) {
-                const response = await Moralis.EvmApi.nft.getNFTTrades({
-                    address: query.contractAddress[i],
-                    chain: "0x1",
-                })
+      for (let i = 0; i < query.contractAddress.length; i++) {
+        const response = await Moralis.EvmApi.nft.getNFTTrades({
+          address: query.contractAddress[i],
+          chain: "0x1",
+        });
 
-                nftData.push(response)
-            }
+        nftData.push(response);
+      }
 
-            const response = { nftData }
-            return res.status(200).json(response)
-        }
-    } catch (e) {
-        console.log(`Somthing went wrong ${e}`)
-        return res.status(400).json()
+      const response = { nftData };
+      return res.status(200).json(response);
     }
-})
+  } catch (e) {
+    console.log(`Somthing went wrong ${e}`);
+    return res.status(400).json();
+  }
+});
 
 app.get("/getcontractnft", async (req, res) => {
-    try {
-        const { query } = req
-        const chain = query.chain == "0x5" ? "0x5" : "0x1"
+  try {
+    const { query } = req;
+    const chain = query.chain == "0x5" ? "0x5" : "0x1";
 
-        const response = await Moralis.EvmApi.nft.getContractNFTs({
-            chain,
-            format: "decimal",
-            address: query.contractAddress,
-        })
+    const response = await Moralis.EvmApi.nft.getContractNFTs({
+      chain,
+      format: "decimal",
+      address: query.contractAddress,
+    });
 
-        return res.status(200).json(response)
-    } catch (e) {
-        console.log(`Something went wrong ${e}`)
-        return res.status(400).json()
-    }
-})
+    return res.status(200).json(response);
+  } catch (e) {
+    console.log(`Something went wrong ${e}`);
+    return res.status(400).json();
+  }
+});
 
 app.get("/getnfts", async (req, res) => {
-    try {
-        const { query } = req
+  try {
+    const { query } = req;
 
-        const response = await Moralis.EvmApi.nft.getWalletNFTs({
-            address: query.address,
-            chain: query.chain,
-        })
+    const response = await Moralis.EvmApi.nft.getWalletNFTs({
+      address: query.address,
+      chain: query.chain,
+    });
 
-        return res.status(200).json(response)
-    } catch (e) {
-        console.log(`Something went wrong ${e}`)
-        return res.status(400).json()
-    }
-})
+    return res.status(200).json(response);
+  } catch (e) {
+    console.log(`Something went wrong ${e}`);
+    return res.status(400).json();
+  }
+});
 
 Moralis.start({
-    apiKey: MORLAIS_API_KEY,
+  apiKey: MORLAIS_API_KEY,
 }).then(() => {
-    app.listen(port, () => {
-        console.log(`Server running on port ${port}`)
-    })
-})
+  app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+  });
+});
