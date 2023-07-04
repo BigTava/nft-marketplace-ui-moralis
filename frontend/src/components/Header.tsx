@@ -11,9 +11,11 @@ export default function Header() {
             </Link>
             <div className="flex flex-row items-center">
                 <Link href="/">
+                    {/* Home is going to be the recent listings page */}
                     <a className="mr-4 p-6">Home</a>
                 </Link>
                 <Link href="/sell-nft">
+                    {/* This is going to include cancel listings, update listings, and withdraw proceeds */}
                     <a className="mr-4 p-6">Sell NFTs</a>
                 </Link>
                 <ConnectButton moralisAuth={false} />

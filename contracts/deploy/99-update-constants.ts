@@ -6,7 +6,7 @@ import path from "path"
 const generatePath = (...args: string[]) => path.resolve(__dirname, "../..", ...args)
 
 const FRONTEND_ADDRESSES_FILE = generatePath("frontend", "constants", "networkMapping.json")
-const FRONTEND_ABI_FILE = generatePath("frontend", "constants", "abi.json")
+const FRONTEND_ABI_FILE = generatePath("frontend", "constants", "NftMarketplace.json")
 const BACKEND_ADDRESSES_FILE = generatePath("moralis-backend", "constants", "networkMapping.json")
 const BACKEND_ABI_FILE = generatePath("moralis-backend", "constants", "abi.json")
 
@@ -22,7 +22,7 @@ const update = async function (
 ) {
     const { network, ethers } = hre
     const chainId = network.config.chainId?.toString()!
-    console.log(process.env.UPDATE_CONSTANTS)
+
     if (process.env.UPDATE_CONSTANTS) {
         console.log("Writing to constants...")
         const nftMarketplace = await ethers.getContract("NftMarketplace")

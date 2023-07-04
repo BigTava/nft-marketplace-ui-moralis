@@ -51,9 +51,6 @@ const config: HardhatUserConfig = {
         mainnet: {
             url: MAINNET_RPC_URL,
             accounts: PRIVATE_KEY !== undefined ? [PRIVATE_KEY] : [],
-            //   accounts: {
-            //     mnemonic: MNEMONIC,
-            //   },
             saveDeployments: true,
             chainId: 1,
         },
@@ -65,9 +62,7 @@ const config: HardhatUserConfig = {
         },
     },
     etherscan: {
-        // yarn hardhat verify --network <NETWORK> <CONTRACT_ADDRESS> <CONSTRUCTOR_PARAMETERS>
         apiKey: {
-            // npx hardhat verify --list-networks
             sepolia: ETHERSCAN_API_KEY,
             mainnet: ETHERSCAN_API_KEY,
             polygon: POLYGONSCAN_API_KEY,
@@ -82,8 +77,8 @@ const config: HardhatUserConfig = {
     },
     namedAccounts: {
         deployer: {
-            default: 0, // here this will by default take the first account as deployer
-            1: 0, // similarly on mainnet it will take the first account as deployer. Note though that depending on how hardhat network are configured, the account 0 on one network can be different than on another
+            default: 0,
+            1: 0,
         },
         feeCollector: {
             default: 1,
