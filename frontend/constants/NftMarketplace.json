@@ -1,33 +1,42 @@
 [
     {
         "type": "error",
-        "name": "AlreadyListed",
+        "name": "NftMarketplace__AlreadyListed",
         "inputs": [
             { "type": "address", "name": "nftAddress" },
             { "type": "uint256", "name": "tokenId" }
         ]
     },
-    { "type": "error", "name": "NoProceeds", "inputs": [] },
-    { "type": "error", "name": "NotApprovedForMarketplace", "inputs": [] },
+    { "type": "error", "name": "NftMarketplace__NoProceeds", "inputs": [] },
     {
         "type": "error",
-        "name": "NotListed",
+        "name": "NftMarketplace__NotApprovedForMarketplace",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "NftMarketplace__NotListed",
         "inputs": [
             { "type": "address", "name": "nftAddress" },
             { "type": "uint256", "name": "tokenId" }
         ]
     },
-    { "type": "error", "name": "NotOwner", "inputs": [] },
-    { "type": "error", "name": "PriceMustBeAboveZero", "inputs": [] },
+    { "type": "error", "name": "NftMarketplace__NotOwner", "inputs": [] },
     {
         "type": "error",
-        "name": "PriceNotMet",
+        "name": "NftMarketplace__PriceMustBeAboveZero",
+        "inputs": []
+    },
+    {
+        "type": "error",
+        "name": "NftMarketplace__PriceNotMet",
         "inputs": [
             { "type": "address", "name": "nftAddress" },
             { "type": "uint256", "name": "tokenId" },
             { "type": "uint256", "name": "price" }
         ]
     },
+    { "type": "error", "name": "NftMarketplace__TransferFailed", "inputs": [] },
     {
         "type": "event",
         "anonymous": false,
@@ -66,7 +75,6 @@
         "constant": false,
         "stateMutability": "payable",
         "payable": true,
-        "gas": 29000000,
         "inputs": [
             { "type": "address", "name": "nftAddress" },
             { "type": "uint256", "name": "tokenId" }
@@ -78,7 +86,6 @@
         "name": "cancelListing",
         "constant": false,
         "payable": false,
-        "gas": 29000000,
         "inputs": [
             { "type": "address", "name": "nftAddress" },
             { "type": "uint256", "name": "tokenId" }
@@ -91,7 +98,6 @@
         "constant": true,
         "stateMutability": "view",
         "payable": false,
-        "gas": 29000000,
         "inputs": [
             { "type": "address", "name": "nftAddress" },
             { "type": "uint256", "name": "tokenId" }
@@ -112,7 +118,6 @@
         "constant": true,
         "stateMutability": "view",
         "payable": false,
-        "gas": 29000000,
         "inputs": [{ "type": "address", "name": "seller" }],
         "outputs": [{ "type": "uint256" }]
     },
@@ -121,7 +126,6 @@
         "name": "listItem",
         "constant": false,
         "payable": false,
-        "gas": 29000000,
         "inputs": [
             { "type": "address", "name": "nftAddress" },
             { "type": "uint256", "name": "tokenId" },
@@ -134,7 +138,6 @@
         "name": "updateListing",
         "constant": false,
         "payable": false,
-        "gas": 29000000,
         "inputs": [
             { "type": "address", "name": "nftAddress" },
             { "type": "uint256", "name": "tokenId" },
@@ -147,7 +150,6 @@
         "name": "withdrawProceeds",
         "constant": false,
         "payable": false,
-        "gas": 29000000,
         "inputs": [],
         "outputs": []
     }
